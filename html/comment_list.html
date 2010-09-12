@@ -1,0 +1,14 @@
+{% load markup %}
+{% load comments %}
+
+{% get_comment_count for e as c_count %}
+{% get_comment_list for e as c_list %}
+
+{% for c in c_list %}
+	<li class="comment">
+		<span class="comment_author">{{c.user_name|textile}}</span>
+		<span class="comment_content">{{ c.comment|textile }}</span>
+	</li>
+{% empty %}
+	<li class="comment">No comments posted yet. Be the first!</li>
+{% endfor %}

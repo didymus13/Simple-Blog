@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% load markup %}
+{% load comments %}
+
+{% block page_title %}{{e.title}}{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript">
+
+	$(document).ready(function(){
+
+		$("#comment_list").load('/blog/get_comment/{{e.slug}}/');
+		$("#comment_form_body").hide();
+
+		$("#comment_toggle").click(function(event){
+			$("#comment_form_body").toggle();
+		});
+
+//		updateCommentList('/blog/get_comment/{{e.slug}}/');
+
+	});
+</script>
+{% endblock %}
+
+
+{% block content %}
+
+{% get_comment_count for e as c_count %}
+{% get_comment_list for e as c_list %}
+
+<h1 class="title">{{e.title|capfirst}}</h1>
+
+<p>{{e.body|textile}}</p>
+
+<div class="blog_footer">
+<p>Posted by {{e.user}} on {{e.pub_date}} : {{c_count|default:"0"}} comments </p>
+<p>Posted in: {%for t in e.tags.all%} <a href="/blog/tag/{{t.slug}}">{{t|capfirst}}</a> {%endfor%}</p>
+</div>
+
+<div id="comments">
+	<ul id="comment_list"></ul>
+
+	<div id="comment_form">
+		<div id="comment_header_switch">
+			Please leave a comment. <button id="comment_toggle">Hide / Unhide form</button>
+		</div>
+		<div id="comment_form_body">
+			{% render_comment_form for e %}
+		</div>
+	</div>
+</div>
+
+{% endblock %}

@@ -54,7 +54,9 @@ def entry_form (request, slug=None):
             return redirect(e)
         
     f = EntryForm(instance=e)
-    return render_to_response('blog/entry_form.html', {'f': f,} , context_instance=RequestContext(request) )
+    return render_to_response('blog/entry_form.html', 
+        {'f': f, 'pageTitle': "Blog entry form"} , 
+        context_instance=RequestContext(request) )
         
     
 

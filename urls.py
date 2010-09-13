@@ -19,6 +19,7 @@ urlpatterns = patterns('blog.views',
     (r'^new/$', 'entry_form' ),
     (r'^(?P<slug>[-\w]+)/$', 'entry' ),
     (r'^(?P<slug>[-\w]+)/edit/$', 'entry_form' ),
+    (r'^(?P<slug>[-\w]+)/delete/$', 'entry_delete' ),
     (r'^tag/(?P<tag_slug>[-\w]+)/$', 'entry_list'),
     
 	## Example:

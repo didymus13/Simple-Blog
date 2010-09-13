@@ -61,13 +61,7 @@ def entry_form (request, slug=None):
     
 
 @login_required
-def entry_delete (request, id=None):
-	"""
-	==========
-	Pseudocode
-	==========
-	if user has permission to delete, 
-	confirm intentions
-	then delete
-	"""
-	pass
+def entry_delete (request, slug=None):
+    e = get_object_or_404(Entry, slug=slug)
+    e.delete()
+    return redirect('/blog')

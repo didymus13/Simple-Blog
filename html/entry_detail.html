@@ -3,22 +3,15 @@
 {% load markup %}
 {% load comments %}
 
-{% block page_title %}{{e.title}}{% endblock %}
-
 {% block javascript %}
 <script type="text/javascript">
 
 	$(document).ready(function(){
-
-		$("#comment_list").load('/blog/get_comment/{{e.slug}}/');
 		$("#comment_form_body").hide();
 
 		$("#comment_toggle").click(function(event){
 			$("#comment_form_body").toggle();
 		});
-
-//		updateCommentList('/blog/get_comment/{{e.slug}}/');
-
 	});
 </script>
 {% endblock %}
@@ -35,7 +28,11 @@
 
 <div class="blog_footer">
 <p>Posted by {{e.user}} on {{e.pub_date}} : {{c_count|default:"0"}} comments </p>
-<p>Posted in: {%for t in e.tags.all%} <a href="/blog/tag/{{t.slug}}">{{t|capfirst}}</a> {%endfor%}</p>
+<p>Posted in:
+    {%for t in e.tags.all%}
+        <a href="/blog/tag/{{t.slug}}">{{t|capfirst}}</a>
+    {%empty%}Uncategorized
+    {%endfor%}</p>
 </div>
 
 <div id="comments">

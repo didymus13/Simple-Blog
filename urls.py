@@ -16,9 +16,11 @@ Blog URLs should be the following
 
 urlpatterns = patterns('blog.views',
     (r'^$', 'entry_list'),
+    (r'^new/$', 'entry_form' ),
     (r'^(?P<slug>[-\w]+)/$', 'entry' ),
+    (r'^(?P<slug>[-\w]+)/edit/$', 'entry_form' ),
     (r'^tag/(?P<tag_slug>[-\w]+)/$', 'entry_list'),
-    (r'^get_comment/(?P<slug>[-\w]+)/$', 'get_comment_list'),
+    
 	## Example:
 	##(r'^$', 'date_based.archive_index', dict(blog_dict, template_name='blog/entry_list.html', template_object_name='entry' )),
 	#(r'^(?P<year>\d+)/$', 'date_based.archive_year', dict(blog_dict, make_object_list=True, date_field= 'pub_date',)),

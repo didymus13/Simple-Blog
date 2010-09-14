@@ -1,17 +1,13 @@
 from django.conf.urls.defaults import *
-from blog.models import Entry, Tag
+from blog.models import Entry
 
 '''
 Blog URLs should be the following
  * /blog/		: get list of all
- * /blog/user/USERID	: get list of all entries for that user
- * /blog/tag/TAGID	: get list of all with tag
  * /blog/SLUGID		: show specific blog entry
  * /blog/new		: creates a new entry
- * /blog/ID/edit	: edits the entry
- * /blog/ID/delete	: deletes the entry
- * /blog/date/YEAR	: lists all entries for that year
- * /blog/date/YEAR/MONTH : lists all entries for that year/month
+ * /blog/slug/edit	: edits the entry
+ * /blog/slug/delete	: deletes the entry
 '''
 
 urlpatterns = patterns('blog.views',
@@ -20,7 +16,7 @@ urlpatterns = patterns('blog.views',
     (r'^(?P<slug>[-\w]+)/$', 'entry' ),
     (r'^(?P<slug>[-\w]+)/edit/$', 'entry_form' ),
     (r'^(?P<slug>[-\w]+)/delete/$', 'entry_delete' ),
-    (r'^tag/(?P<tag_slug>[-\w]+)/$', 'entry_list'),
+ #   (r'^tag/(?P<tag_slug>[-\w]+)/$', 'entry_list'),
     
 	## Example:
 	##(r'^$', 'date_based.archive_index', dict(blog_dict, template_name='blog/entry_list.html', template_object_name='entry' )),

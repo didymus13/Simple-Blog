@@ -7,13 +7,13 @@
 {% for e in e_list %}
     {% get_comment_count for e as c_count %}
 	<div class="blog_entry_preview">
-		<h3 class="blog_entry_title">
-            <a href="/blog/{{e.slug}}">{{e.title}}</a>
-        </h3>
+		<div class="title">
+            <a href="{{ e.get_absolute_url }}">{{e.title}}</a>
+        </div>
 		<p class="blog_entry_body">{{e.body|textile|truncatewords_html:100}}</p>
 		<p class="blog_entry_footer">
             <p>Posted by {{e.user}} on {{e.pub_date}} : {{c_count}} comments </p>
-            <p>Posted in: {%for t in e.tags.all%} <a href="/blog/tag/{{t.slug}}">{{t|capfirst}}</a> {%endfor%}</p>
+            <!-- p>Posted in: {%for t in e.tags.all%} <a href="/blog/tag/{{t.slug}}">{{t|capfirst}}</a> {%endfor%}</p -->
       </p>
 	</div>
 {% empty %}

@@ -6,20 +6,6 @@ import re
 
 # Create your models here.
 
-class Tag(models.Model):
-	"""
-	Blog Topic Tags
-	"""
-	user = models.ForeignKey(User)
-	name = models.CharField(max_length=32)
-	slug = models.SlugField(max_length=128)
-	
-	def __unicode__(self):
-		return self.name
-
-	class Meta:
-		pass
-
 class Entry(models.Model):
 	"""
 	Individual Blog Entry model
@@ -27,7 +13,6 @@ class Entry(models.Model):
 	user = models.ForeignKey(User )
 	title = models.CharField(max_length=128)
 	slug = models.SlugField(max_length=128)
-	tags = models.ManyToManyField(Tag, blank=True, null=True)
 	pub_date = models.DateField(auto_now_add=True)
 	body = models.TextField()
 

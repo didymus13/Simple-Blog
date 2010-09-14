@@ -6,19 +6,14 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.template import RequestContext
 from django.template.defaultfilters import slugify
-
+from django.core.paginator import Paginator
 
 def entry_list (request, tag_slug=None, user=None):
     try:
-        if tag_slug:
-            e_list = Tag.objects.get(slug=tag_slug).entry_set.all()
-        elif user:
-            e_list = User.objects.get(username=user).entry_set.all()
-        else:
-            e_list = Entry.objects.all()
+        e_list = Entry.objects.all()
     except:
-            e_list = Entry.objects.none()
-    return render_to_response('blog/entry_list.html', {'e_list': e_list,})
+        e_list = Entry.objects.none()
+    return render_to_response('blog/entry_list.html', {'e_list': e_list[:10],})
 
 def entry (request, slug):
     e = Entry.objects.get(slug__exact=slug)
@@ -50,9 +45,8 @@ def entry_form (request, slug=None):
             e.slug = slugify(e.title)
             e.user = request.user
             e.save()
-            f.save_m2m()
             return redirect(e)
-        
+    
     f = EntryForm(instance=e)
     return render_to_response('blog/entry_form.html', 
         {'f': f, 'pageTitle': "Blog entry form"} , 

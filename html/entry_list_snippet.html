@@ -13,7 +13,6 @@
 		<p class="blog_entry_body">{{e.body|textile|truncatewords_html:100}}</p>
 		<p class="blog_entry_footer">
             <p>Posted by {{e.user}} on {{e.pub_date}} : {{c_count}} comments </p>
-            <!-- p>Posted in: {%for t in e.tags.all%} <a href="/blog/tag/{{t.slug}}">{{t|capfirst}}</a> {%endfor%}</p -->
       </p>
 	</div>
 {% empty %}

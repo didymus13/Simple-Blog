@@ -28,11 +28,6 @@
 
 <div class="blog_footer">
 <p>Posted by {{e.user}} on {{e.pub_date}} : {{c_count|default:"0"}} comments </p>
-<p>Posted in:
-    {%for t in e.tags.all%}
-        <a href="/blog/tag/{{t.slug}}">{{t|capfirst}}</a>
-    {%empty%}Uncategorized
-    {%endfor%}</p>
 </div>
 
 <div id="comments">

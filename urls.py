@@ -5,6 +5,7 @@ from blog.models import Entry
 Blog URLs should be the following
  * /blog/		: get list of all
  * /blog/SLUGID		: show specific blog entry
+ * /blog/page/1     : blog list with pagination
  * /blog/new		: creates a new entry
  * /blog/slug/edit	: edits the entry
  * /blog/slug/delete	: deletes the entry
@@ -12,6 +13,7 @@ Blog URLs should be the following
 
 urlpatterns = patterns('blog.views',
     (r'^$', 'entry_list'),
+    (r'^page/(?P<page>\d+)/$', 'entry_list'),
     (r'^new/$', 'entry_form' ),
     (r'^(?P<slug>[-\w]+)/$', 'entry' ),
     (r'^(?P<slug>[-\w]+)/edit/$', 'entry_form' ),

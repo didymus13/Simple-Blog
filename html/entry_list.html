@@ -4,4 +4,8 @@
 
 {% include "blog/entry_list_snippet.html" %}
 
+<div class="pagination">
+    Page {{ e_list.number }} of {{ e_list.paginator.num_pages }}
+</div>
+
 {% endblock %}

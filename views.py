@@ -8,12 +8,17 @@ from django.template import RequestContext
 from django.template.defaultfilters import slugify
 from django.core.paginator import Paginator
 
-def entry_list (request, tag_slug=None, user=None):
+def entry_list (request, page=1):
     try:
         e_list = Entry.objects.all()
     except:
         e_list = Entry.objects.none()
-    return render_to_response('blog/entry_list.html', {'e_list': e_list[:10],})
+    p = Paginator(e_list, 10)
+    try:
+        entries = paginator.page(page)
+    except (EmptyPage, InvalidPage):
+        entries = paginator.page(paginator.num_pages)
+    return render_to_response('blog/entry_list.html', {'e_list': entries,})
 
 def entry (request, slug):
     e = Entry.objects.get(slug__exact=slug)

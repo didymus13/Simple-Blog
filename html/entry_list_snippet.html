@@ -4,7 +4,7 @@
 
 <div class="blog_list">
 
-{% for e in e_list %}
+{% for e in e_list.object_list %}
     {% get_comment_count for e as c_count %}
 	<div class="blog_entry_preview">
 		<div class="title">

@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.template import RequestContext
 from django.template.defaultfilters import slugify
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator, EmptyPage, InvalidPage
 
 def entry_list (request, page=1):
     try:
@@ -15,9 +15,9 @@ def entry_list (request, page=1):
         e_list = Entry.objects.none()
     p = Paginator(e_list, 10)
     try:
-        entries = paginator.page(page)
+        entries = p.page(page)
     except (EmptyPage, InvalidPage):
-        entries = paginator.page(paginator.num_pages)
+        entries = p.page(p.num_pages)
     return render_to_response('blog/entry_list.html', {'e_list': entries,})
 
 def entry (request, slug):

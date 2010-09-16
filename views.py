@@ -8,6 +8,23 @@ from django.template import RequestContext
 from django.template.defaultfilters import slugify
 from django.core.paginator import Paginator, EmptyPage, InvalidPage
 
+from django.contrib.syndication.views import Feed
+
+class LatestBlogEntriesFeed(Feed):
+    title = "StephaneDoiron.com site news"
+    link = "/blog/"
+    description = "Updates on StephaneDoiron.com"
+
+    def items(self):
+        return Entry.objects.all()
+
+    def item_title(self, item):
+        return item.title
+
+    def item_description(self, item):
+        return item.body
+
+
 def entry_list (request, page=1):
     try:
         e_list = Entry.objects.all()

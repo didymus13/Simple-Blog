@@ -1,12 +1,13 @@
 from django.conf.urls.defaults import *
 from blog.models import Entry
-
+from blog.views import LatestBlogEntriesFeed
 '''
 Blog URLs should be the following
  * /blog/		: get list of all
  * /blog/SLUGID		: show specific blog entry
  * /blog/page/1     : blog list with pagination
  * /blog/new		: creates a new entry
+ * /blog/rss		: rss blog 
  * /blog/slug/edit	: edits the entry
  * /blog/slug/delete	: deletes the entry
 '''
@@ -15,6 +16,7 @@ urlpatterns = patterns('blog.views',
     (r'^$', 'entry_list'),
     (r'^page/(?P<page>\d+)/$', 'entry_list'),
     (r'^new/$', 'entry_form' ),
+    (r'^rss/$', LatestBlogEntriesFeed() ),
     (r'^(?P<slug>[-\w]+)/$', 'entry' ),
     (r'^(?P<slug>[-\w]+)/edit/$', 'entry_form' ),
     (r'^(?P<slug>[-\w]+)/delete/$', 'entry_delete' ),

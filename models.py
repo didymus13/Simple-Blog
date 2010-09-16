@@ -3,7 +3,6 @@ from django.contrib import admin
 from django.contrib.auth.models import User
 from django.forms import ModelForm 
 import re
-
 # Create your models here.
 
 class Entry(models.Model):

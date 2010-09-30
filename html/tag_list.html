@@ -1,0 +1,13 @@
+{% extends "base.html"  %}
+
+{% block content %}
+
+<ul id="tag_list">
+	{% for tag in t_list %}
+		<li><a href="{{ tag.get_absolute_url }}">{{ tag.label }}</a></li>
+	{% empty %}
+		<li>There are no tags on file</li>
+	{% endfor %}
+</ul>
+
+{% endblock %}

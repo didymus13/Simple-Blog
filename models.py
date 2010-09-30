@@ -17,7 +17,7 @@ class Tag(models.Model):
         return self.label
 
     def get_absolute_url(self):
-        return '/blog/tags/%s' % self.slug
+        return '/blog/tags/%s/' % self.slug
 
     def save(self, *args, **kwargs):
         if self.label and not self.slug:
@@ -47,7 +47,7 @@ class Entry(models.Model):
         return self.title
 	
     def get_absolute_url(self):
-        return '/blog/%s' % self.slug
+        return '/blog/%s/' % self.slug
 
     def save(self, *args, **kwargs):
         if self.title and not self.slug:

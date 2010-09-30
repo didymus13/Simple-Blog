@@ -1,5 +1,18 @@
 {% extends "base.html" %}
 
+{% block stylesheet %}
+<style>
+.tag A {
+    border: 1px solid black;
+    margin: 0px;
+    font-size: 50%;
+    border--radius: 5px;
+    -moz-border-radius: 5px;
+    vertical-align: super;
+}
+</style>
+{% endblock %}
+
 {% block content %}
 
 {% include "blog/entry_list_snippet.html" %}

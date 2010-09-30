@@ -9,6 +9,9 @@
 	<div class="blog_entry_preview">
 		<div class="title">
             <a href="{{ e.get_absolute_url }}">{{e.title}}</a>
+			{% for tag in e.tags.all %}
+			<span class="tag"><a href="{{tag.get_absolute_url}}">{{tag.label}}</a></span>
+			{% endfor %}
         </div>
 		<p class="blog_entry_body">{{e.body|textile|truncatewords_html:100}}</p>
 		<p class="blog_entry_footer">

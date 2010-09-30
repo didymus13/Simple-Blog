@@ -3,13 +3,18 @@ from blog.models import Entry
 from blog.views import LatestBlogEntriesFeed
 '''
 Blog URLs should be the following
- * /blog/		: get list of all
- * /blog/SLUGID		: show specific blog entry
- * /blog/page/1     : blog list with pagination
- * /blog/new		: creates a new entry
- * /blog/rss		: rss blog 
- * /blog/slug/edit	: edits the entry
- * /blog/slug/delete	: deletes the entry
+	/blog/					: get list of all
+	/blog/SLUGID			: show specific blog entry
+	/blog/page/1    		: blog list with pagination
+	/blog/new				: creates a new entry
+	/blog/rss				: rss blog 
+	/blog/slug/edit			: edits the entry
+	/blog/slug/delete		: deletes the entry
+	/blog/tags				: list all available tags
+	/blog/tags/tag			: lists all blog posts with that tag
+	/blog/tags/new			: create a new tag
+	/blog/tags/tag/edit		: edit an existing tag
+	/blog/tags/tag/delete	: deletes the tag
 '''
 
 urlpatterns = patterns('blog.views',
@@ -17,10 +22,15 @@ urlpatterns = patterns('blog.views',
     (r'^page/(?P<page>\d+)/$', 'entry_list'),
     (r'^new/$', 'entry_form' ),
     (r'^rss/$', LatestBlogEntriesFeed() ),
+	(r'^tags/$', 'tag_list'),
+	(r'^tags/new/$', 'tag_form'),
+	(r'^tags/(?P<tag>[-\w]+)/$', 'entry_list'),
+	(r'^tags/(?P<tag>[-\w]+)/edit/$', 'tag_form'),
+	(r'^tags/(?P<tag>[-\w]+)/delete/$', 'tag_delete'),
     (r'^(?P<slug>[-\w]+)/$', 'entry' ),
     (r'^(?P<slug>[-\w]+)/edit/$', 'entry_form' ),
     (r'^(?P<slug>[-\w]+)/delete/$', 'entry_delete' ),
- #   (r'^tag/(?P<tag_slug>[-\w]+)/$', 'entry_list'),
+
     
 	## Example:
 	##(r'^$', 'date_based.archive_index', dict(blog_dict, template_name='blog/entry_list.html', template_object_name='entry' )),

@@ -3,18 +3,52 @@ from blog.models import *
 from django.contrib.auth.models import *
 from django.db import IntegrityError
 from django.test.client import Client
+from django.utils import simplejson as json
 
 class TagTestCase(unittest.TestCase):
+    def setUp(self):
+        t = Tag(label='test')
+        t.save()
+
+    def tearDown(self):
+        t = Tag.objects.get(slug='test')
+        t.delete()
+
     def testNewTagShouldBeEmpty(self):
         t = Tag()
         self.assertEquals('', t.label)
         self.assertEquals('', t.slug)
 
     def testNewTagWithoutSlugShouldGetOne(self):
-        t = Tag(label='test')
+        t = Tag(label='test slug')
         t.save()
-        self.assertEquals('test', t.slug)  
-        t.delete()      
+        self.assertEquals('test-slug', t.slug)  
+        t.delete()    
+
+    def testAPIGetTagList(self):
+        c = Client()
+        response = c.get('/blog/api/tag/')
+        self.assertNotEquals(None, re.search('test', response.content))
+
+    def testAPICreateTag(self):
+        c = Client()
+        response = c.post('/blog/api/tag/', {'label': 'test insert'});
+        self.assertNotEquals(None, re.search('test insert', response.content))
+        self.assertNotEquals(None, re.search('test-insert', response.content))
+
+    def testAPIUpdateTag(self):
+        c = Client()
+        response = c.put('/blog/api/tag/test/', {'slug':'test', 'label':'test edit'})
+        self.assertNotEquals(None, re.search('test edit', response.content))
+
+    def testAPIDeleteTag(self): 
+        t = Tag(label='delete test')
+        t.save()
+        c = Client()
+        response = c.delete('/blog/api/tag/delete-test/')
+        self.assertEquals(204, response.status_code)
+        
+       
 
 class EntryTestCase(unittest.TestCase):
     def setUp(self):

@@ -30,7 +30,6 @@ urlpatterns = patterns('blog.views',
     (r'^(?P<slug>[-\w]+)/$', 'entry' ),
     (r'^(?P<slug>[-\w]+)/edit/$', 'entry_form' ),
     (r'^(?P<slug>[-\w]+)/delete/$', 'entry_delete' ),
-
     
 	## Example:
 	##(r'^$', 'date_based.archive_index', dict(blog_dict, template_name='blog/entry_list.html', template_object_name='entry' )),
@@ -38,4 +37,19 @@ urlpatterns = patterns('blog.views',
 	#(r'^(?P<year>\d+)/(?P<month>\d+)/$', 'date_based.archive_month', dict(blog_dict, month_format="%m", date_field= 'pub_date',)),
 	#(r'^\d+/\d+/(?P<slug>[-\w]+)/$', 'list_detail.object_detail', dict(blog_dict, template_name='blog/entry_detail.html',)),
 	##(r'^/tag/(?P<tag>)/$', 'list_detail.object_list', dict(blog_dict, 
+)
+
+
+#piston API resources
+from piston.resource import Resource
+from blog.handlers import *
+
+blog_entry_handler = Resource(EntryHandler)
+blog_tag_handler = Resource(TagHandler)
+
+urlpatterns += patterns('',
+    (r'^api/entry/$', blog_entry_handler),
+    (r'^api/entry/(?P<slug>[-\w]+)/$', blog_entry_handler),
+    (r'^api/tag/$', blog_tag_handler),
+    (r'^api/tag/(?P<tag>[-\w]+)/$', blog_tag_handler),
 )

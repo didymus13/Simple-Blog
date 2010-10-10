@@ -22,6 +22,10 @@
 {% get_comment_count for e as c_count %}
 {% get_comment_list for e as c_list %}
 
+{% if user.is_authenticated %}
+<div style="float: right;"><a href="{{e.get_absolute_url}}edit/">[ Edit ]</a></div>
+{% endif %}
+
 <h1 class="title">{{e.title|capfirst}}</h1>
 
 <p>{{e.body|restructuredtext}}</p>
@@ -37,7 +41,23 @@
 			Please leave a comment. <button id="comment_toggle">Hide / Unhide form</button>
 		</div>
 		<div id="comment_form_body">
-			{% render_comment_form for e %}
+            {% get_comment_form for e as form %}
+            <form action="{% comment_form_target %}" method="post">
+            <input type="hidden" name="next" value="{{e.get_absolute_url}}" />
+              {% csrf_token %}
+              {% for field in form.visible_fields %}
+                {% if forloop.first %}
+                    {% for hidden in form.hidden_fields %}{{ hidden }}{% endfor %}
+                {% endif %}
+
+                  <div class="field-wrapper" 
+                    {% ifequal field.name 'honeypot'%}style="visibility: hidden;"{% endifequal %}
+                  >
+                    {{field.label_tag}} {{field}}
+                  </div>
+              {% endfor %}
+                <input type="submit" name="submit" class="submit-post" value="Post" />
+            </form>
 		</div>
 	</div>
 </div>

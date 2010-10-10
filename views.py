@@ -44,7 +44,8 @@ def entry (request, slug):
     e = Entry.objects.get(slug__exact=slug)
     return render_to_response('blog/entry_detail.html', {
 		'pageTitle': e.title,
-        'e' : e},
+        'e' : e,
+        'user': request.user },
 		context_instance=RequestContext(request), )
 
 @login_required

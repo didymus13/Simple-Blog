@@ -25,7 +25,7 @@ class Tag(models.Model):
         super(Tag, self).save(*args, **kwargs)
 
 	class Meta:
-		ordering = ('label',)
+		ordering = ['label',]
 
 class TagForm(ModelForm):
 	class Meta:
@@ -56,7 +56,7 @@ class Entry(models.Model):
 	
 	class Meta:
 		verbose_name_plural = 'Entries'
-		ordering = ('-pub_date',)
+		ordering = ['-pub_date',]
 		
 class EntryForm(ModelForm):
 	class Meta:

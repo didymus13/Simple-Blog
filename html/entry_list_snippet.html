@@ -13,7 +13,7 @@
 			<span class="tag"><a href="{{tag.get_absolute_url}}">{{tag.label}}</a></span>
 			{% endfor %}
         </div>
-		<p class="blog_entry_body">{{e.body|restructuredtext|truncatewords_html:100}}</p>
+		<p class="blog_entry_body">{{e.body|textile|truncatewords_html:100}}</p>
 		<p class="blog_entry_footer">
             <p>Posted by {{e.user}} on {{e.pub_date}} : {{c_count}} comments </p>
       </p>
